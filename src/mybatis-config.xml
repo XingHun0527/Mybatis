@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+			<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+			<configuration> 
+			<!-- 类型别名 -->
+			  <typeAliases> 
+				<typeAlias alias="Student" type="com.briup.bean.Student" /> 
+				<!-- 自动给当前报下的所有javabean提供一个别名 默认为：首字母小写
+				大小写不区分 -->
+				<package name="com.briup.bean"/>
+			  </typeAliases>
+			  <!-- 类型处理器 基本数据类型 String byte[] 枚举类型 --> 
+			  <typeHandlers>
+			 <!--  	<typeHandler handler=""/> -->
+			  </typeHandlers>
+			  <!-- 数据库开发环境 -->
+			  <environments default="development">
+			  <!-- 生产环境 --> 
+				<environment id="development"> 
+				
+				  <transactionManager type="JDBC" /> 
+				  <!-- 数据源 -->
+				   <dataSource type="POOLED">
+					<!--
+					<property name="driver" value="com.mysql.jdbc.Driver" /> 
+					<property name="url" value="jdbc:mysql://localhost:3306/test" /> 
+					-->
+					<property name="driver" value="oracle.jdbc.driver.OracleDriver" /> 
+					<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE" /> 
+					<property name="username" value="briup" /> 
+					<property name="password" value="briup" /> 
+				  </dataSource> 
+				</environment> 
+			  </environments> 
+			  <!-- 映射 -->
+			  <mappers> 
+				<mapper resource="com/briup/mapper/UserDaoMapper.xml" /> 
+				
+				
+			  </mappers> 
+			</configuration> 

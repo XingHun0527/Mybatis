@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	1.namespace 不能重复
+	2.如果映射文件有对应的映射接口，
+		那么映射接口的全类名必须和namespace一致
+--> 
+<mapper namespace="com.briup.dao.ICustomerMapper">  
+ 	<insert id="saveCustomer" parameterType="customer">
+ 		insert into customer1808(id,username,password,dob,address)   
+ 		  values(#{id},#{username},#{password},#{dob},#{address})
+ 	</insert>
+ 	<!--数据驱动支持自增长 ： mysql/sqlServer  -->
+ 	<insert id="saveCustomerWithAutoId" parameterType="customer" 
+ 		useGeneratedKeys="true"  keyProperty="id">
+ 		insert into customer1808(username,password,dob,address)   
+ 		  values(#{username},#{password},#{dob},#{address})
+ 	</insert>
+ 	<!-- 使用sequence序列 -->
+ 	<insert id="saveCustomerWithAutoIdByOracle1" parameterType="customer">
+ 		insert into customer1808(id,username,password,dob,address)   
+ 		  values(customer1808_seq.nextval,#{username},#{password},#{dob},#{address})
+ 	</insert>
+ 	<insert id="saveCustomerWithAutoIdByOracle2" parameterType="customer">
+ 		<selectKey order="BEFORE" resultType="int" keyProperty="id">
+ 			select customer1808_seq.nextval from dual
+ 		</selectKey>
+ 		insert into customer1808(id,username,password,dob,address)   
+ 		  values(#{id},#{username},#{password},#{dob},#{address})
+ 	</insert>
+ 	<!--更新数据  -->
+ 	<update id="updateCustomer" parameterType="Customer">
+ 		update customer1808 set password=#{password},address=#{address}
+ 	</update>
+ 	<!--删除数据  -->
+ 	<delete id="deleteCustomerById" >
+ 		delete from customer1808 where id=#{id}
+ 	</delete>
+ 	<!--查询  -->
+ 	<select id="selectCustomerById" resultType="customer">
+ 		select id,username,password,dob,address  from customer1808 where id = #{id}
+ 	</select>
+</mapper> 

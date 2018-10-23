@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	1.namespace 不能重复
+	2.如果映射文件有对应的映射接口，
+		那么映射接口的全类名必须和namespace一致
+--> 
+<mapper namespace="com.briup.dao.IStudentMapper">  
+  <insert id="saveStudent" 
+    parameterType="com.briup.bean.Student">
+  	insert into briup_student(id,name,age,address) 
+  	  values(#{id},#{name},#{age},#{address})      
+  </insert>
+   <insert id="insertStudent">
+  	insert into briup_student(id,name,age,address) values(889,'李四',17,'江苏')
+  </insert>
+  <insert id="insertStudent2" parameterType="com.briup.bean.Student">
+  	insert into briup_student(id,name,age,address) values(#{id},#{name},#{age},#{address})
+  </insert>
+  <select id="selectStudentById" resultType="Student" parameterType="Student">
+  	select id,name,age,address from briup_student where id=#{id}
+  </select>
+</mapper> 

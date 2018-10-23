@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	1.namespace 不能重复
+	2.如果映射文件有对应的映射接口，
+		那么映射接口的全类名必须和namespace一致
+--> 
+<mapper namespace="com.briup.dao.IOne2OneMapper">  
+ 	<!--数据驱动支持自增长 ： mysql/sqlServer  -->
+ 	<!-- <insert id="saveCustomerWithAutoId" parameterType="customer" 
+ 		useGeneratedKeys="true"  keyProperty="id">
+ 		insert into customer1808(username,password,dob,address)   
+ 		  values(#{username},#{password},#{dob},#{address})
+ 	</insert> -->
+ 	<!-- 使用sequence序列 -->
+ 	<insert id="saveWife" parameterType="wife">
+ 		<selectKey order="BEFORE" resultType="int" keyProperty="id">
+ 			select wife_seq.nextval from dual
+ 		</selectKey>
+ 		insert into wife(wid,name)   
+ 		  values(#{id},#{name})
+ 	</insert>
+ 	<insert id="saveHus" parameterType="hus">
+ 		<selectKey order="BEFORE" resultType="int" keyProperty="id">
+ 			select wife_seq.nextval from dual
+ 		</selectKey>
+ 		insert into husband(hid,name,wife_id)   
+ 		  values(#{id},#{name},#{wife.id})
+ 	</insert>
+ 	<!-- <select id="selectWifeById" resultType="wife">
+ 		select wid as id,name from wife where wid=#{id}
+ 	</select> -->
+ 	<!--映射结果集  -->
+ 	<resultMap type="wife" id="WifeResultMap">
+ 		<id column="wid" property="id"/>
+ 		<result column="name" property="name"/>
+ 	</resultMap>
+ 	<select id="selectWifeById" resultMap="WifeResultMap">
+ 		select wid ,name from wife where wid=#{id}
+ 	</select>
+
+</mapper> 
